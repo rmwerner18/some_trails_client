@@ -8,7 +8,7 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(console.log)
   }
-  
+
   render() {  
     return (
       <div className="App">
