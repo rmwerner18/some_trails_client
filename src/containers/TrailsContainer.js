@@ -10,8 +10,7 @@ export default class TrailsContainer extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>Hello</p>
+            <div className="trails-container">
                 {this.trailGenerator()}
             </div>
         )
