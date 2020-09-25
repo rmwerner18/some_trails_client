@@ -38,20 +38,37 @@ class HikeForm extends React.Component {
         // })
     }
 
-
+    mapTrails = () => {  
+        // makes sure the trail names are unique, wont be an issue with api
+        let names = this.props.trails.map(trail => trail.name)
+        let unique = [...new Set(names)];
+        // w/ api, do: this.props.trails.map(trail => <option value={trail.name} />)
+        return unique.map(trail => <option value={trail}/>)
+    }
 
 
     render() {
+        console.log("JJJ", this.mapTrails())
         return(
             <>
             <img src={this.state.selectedFile}/>
             <form>
-                <h3>Log a recent hike!</h3>
-                <input type="text" placeholder="Name Your Hike"/>
-                <input type="number" placeholder="How many miles was your hike?" />
-                <input type="file" onChange={this.changeHandler}/>
-                <button width="100%" type="button" className="btn btn-info" onClick={this.fileUploadHandler}>Upload File</button>
-                <input type="submit" value="Post your hike"/>
+            <fieldset>
+                <legend>Log a recent hike</legend>
+                    <input type="text" placeholder="Name Your Hike"/><br></br>
+                    <input list="browsers" name="browser"/>
+                    <datalist id="browsers">
+                    {this.mapTrails()}
+                    </datalist>
+                    <input type="number" step="0.01" placeholder="How many miles was your hike?" /><br></br>
+                    <label for="start-time">Start date and time:</label>
+                    <input type="datetime-local" id="start-time" name="start-time" /><br></br>
+                    <label for="end-time">End date and time:</label>
+                    <input type="datetime-local" id="end-time" name="end-time" /><br></br>
+                    <input type="file" onChange={this.changeHandler}/>
+                    <button width="100%" type="button" className="btn btn-info" onClick={this.fileUploadHandler}>Upload File</button><br></br>
+                    <input type="submit" value="Post your hike"/>
+                </fieldset>
             </form>
             </>
         )
