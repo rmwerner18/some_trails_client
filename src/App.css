@@ -13,13 +13,17 @@
   margin: 10px;
 }
 
-.trail-card-front {
+body {
+  background-color: #F2E8CF;
+}
+
+/* .trail-card-front {
 
 }
 
 .trail-card-back {
 
-}
+} */
 
 .modal {
   display: none; /* Hidden by default */
@@ -54,7 +58,33 @@
   cursor: pointer;
 }
 
-.files input {
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #6A994E;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #386641;
+}
+
+/* .files input {
     outline: 2px dashed #92b0b3;
     outline-offset: -10px;
     -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
@@ -98,4 +128,4 @@
     font-weight: 600;
     text-transform: capitalize;
     text-align: center;
-}
+} */

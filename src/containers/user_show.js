@@ -22,11 +22,10 @@ class User extends React.Component {
             this.state.user.hikes
             ?
             <>
-                <h1>Welcome, {this.state.user.username}!</h1>
-                <img src={this.state.user.image} />
-                <h4>About Me: {this.state.user.bio}</h4>
-                <HikeForm />
-                <HikeContainer hikes={this.state.user.hikes} />
+            <h1>Welcome, {this.state.user.username}!</h1>
+            <img src={this.state.user.image} alt={this.state.user.username}/>
+            <h4>About Me: {this.state.user.bio}</h4>
+            <HikeForm trails={this.props.trails}/>
             </>
             :
             null 

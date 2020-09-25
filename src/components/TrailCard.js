@@ -22,7 +22,7 @@ class TrailCard extends React.Component {
                     </div>
                 </div>
                 <div className="trail-card-front" onClick={this.clickHandler}>
-                    <img src={this.props.trail.image} />
+                    <img src={this.props.trail.image} alt={this.props.trail.name}/>
                     <p>{this.props.trail.name}</p>
                     <p>{this.props.trail.location}</p>
                     <p>{this.props.difficulty}</p>

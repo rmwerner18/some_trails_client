@@ -30,7 +30,7 @@ class App extends React.Component {
           <NavBar />
         <Switch>
           <Route path="/trails" render={() => <TrailsContainer trails={this.state.trailArray}/>} />
-          <Route path="/users" component={User} />
+          <Route path="/users" render={() => <User trails={this.state.trailArray}/>} />
           <Route path="/login" />
           <Route path="/" render={() => <h1>Welcome!</h1>}/>
         </Switch>
