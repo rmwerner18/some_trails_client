@@ -18,7 +18,7 @@ class User extends React.Component {
         return(
             <>
             <h1>Welcome, {this.state.user.username}!</h1>
-            <img src={this.state.user.image} />
+            <img src={this.state.user.image} alt={this.state.user.username}/>
             <h4>About Me: {this.state.user.bio}</h4>
             <HikeForm trails={this.props.trails}/>
             </>
