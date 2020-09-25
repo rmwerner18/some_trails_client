@@ -4,7 +4,7 @@ const HikeCard = (props) => {
     return (
     <>
         <h1>{props.hike.name}</h1>
-        <img src={props.hike.photo} alt=""/>
+        <img src='http://localhost:3000/hikes/7/photo' alt="photo" />
     </>
     )
 }
