@@ -1,5 +1,7 @@
 import React from "react"
 import HikeForm from '../components/hike_form'
+import HikeContainer from './hike_container'
+
 
 class User extends React.Component {
 
@@ -8,22 +10,29 @@ class User extends React.Component {
     }
     
     componentDidMount() {
-        fetch("http://localhost:3000/users/2")
+        fetch("http://localhost:3000/users/3")
         .then(resp => resp.json())
         .then(user => this.setState({user: user}))
     }
     
     
     render() {
-        return(
+        console.log("HIKES", this.state.user.hikes)
+        return (
+            this.state.user.hikes
+            ?
             <>
-            <h1>Welcome, {this.state.user.username}!</h1>
-            <img src={this.state.user.image} />
-            <h4>About Me: {this.state.user.bio}</h4>
-            <HikeForm />
+                <h1>Welcome, {this.state.user.username}!</h1>
+                <img src={this.state.user.image} />
+                <h4>About Me: {this.state.user.bio}</h4>
+                <HikeForm />
+                <HikeContainer hikes={this.state.user.hikes} />
             </>
+            :
+            null 
         )
     }
+        
 }
 
 export default User;
