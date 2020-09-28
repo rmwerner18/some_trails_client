@@ -15,16 +15,15 @@ function Home() {
         className="widget"
         display="initial"
         position="relative"/>
-        
+
         <h1>Hikes Near You:</h1>
         <Iframe url="https://www.hikingproject.com/widget/map?favs=1&location=ip&x=-8305802&y=4775862&z=6.5&h=500"
         width="1200px"
-        height="450px"
+        height="500px"
         id="conditionsWidget"
         className="widget"
         display="initial"
         position="relative"/>
-        <h1>Hikes Near You:</h1>
     </div>
     )
 }
