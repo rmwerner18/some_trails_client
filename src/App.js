@@ -11,7 +11,8 @@ class App extends React.Component {
   
   state = {
     trailArray: [],
-    search: ""
+    search: "",
+    faveArray: []
   }
   
   componentDidMount = () => {
@@ -29,15 +30,28 @@ class App extends React.Component {
     return this.state.trailArray.filter(trail => trail.name.toLowerCase().includes(this.state.search.toLowerCase()))
   }
 
-  render() {
-    return this.state.trailArray.length > 0  
-    ?
-    <>
+  faveHandler = (faveTrail) => {
+    // console.log("fave in app", faveTrail)
+    // console.log("clicking: ", faveTrail)
+    if (this.state.faveArray.includes(faveTrail)) {
+    } else {
+      this.setState(() => ({
+        faveArray: [faveTrail, ...this.state.faveArray]
+      }))
+    }
+  }
+
+
+  render() { 
+    // console.log("faves in app", this.state.faveArray) 
+     return this.state.trailArray.length > 0  
+     ?
+     <>
       <div className="App">
           <NavBar />
         <Switch>
-          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} searchHandler={this.searchHandler}/>} />
-          <Route path="/users" render={() => <User trails={this.filterTrails()}/>} />
+          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
+          <Route path="/users" render={() => <User trails={this.filterTrails()} faves={this.state.faveArray}/>} />
           <Route path="/login" />
           <Route path="/" render={() => <Home />}/>
         </Switch>

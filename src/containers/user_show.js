@@ -1,6 +1,7 @@
 import React from "react"
 import HikeForm from '../components/hike_form'
 import HikeContainer from './hike_container'
+import FavoriteContainer from './favorite_container'
 
 
 class User extends React.Component {
@@ -17,6 +18,7 @@ class User extends React.Component {
     
     
     render() {
+        // console.log("faves in user", this.props.faves)
         return (
             this.state.user.hikes
             ?
@@ -24,6 +26,7 @@ class User extends React.Component {
             <h1>Welcome, {this.state.user.username}!</h1>
             <img src={this.state.user.image} alt={this.state.user.username}/>
             <h4>About Me: {this.state.user.bio}</h4>
+            <FavoriteContainer faves={this.props.faves}/>
             <HikeForm trails={this.props.trails}/>
             <HikeContainer hikes={this.state.user.hikes} trails={this.props.trails} />
             </>
