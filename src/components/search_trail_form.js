@@ -16,10 +16,10 @@ class SearchTrails extends React.Component {
     
     render() {
         return(
-            <div className="ui search">
+        <div className="ui search">
             <div className="ui icon input">
-            <input className="prompt" onChange={this.changeHandler} value={this.state.search} placeholder="Search trails by name"/>
-            <i className="search icon" />
+                <input className="prompt" onChange={this.changeHandler} value={this.state.search} placeholder="Search trails by name"/>
+                <i className="search icon" />
             </div>
         </div>
         )

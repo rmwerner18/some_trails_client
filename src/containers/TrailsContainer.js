@@ -5,7 +5,6 @@ import SearchTrails from '../components/search_trail_form'
 export default class TrailsContainer extends React.Component {
 
     searchHandler = (searchValue) => {
-        // console.log("searchValue", searchValue)
         this.props.searchHandler(searchValue)
     }
     

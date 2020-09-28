@@ -5,6 +5,7 @@ import TrailsContainer from './containers/TrailsContainer'
 import { Route, Switch } from 'react-router-dom'
 import NavBar from './components/NavBar';
 import User from './containers/user_show';
+import Home from './components/Home';
 
 class App extends React.Component {
   
@@ -25,13 +26,12 @@ class App extends React.Component {
   }
 
   filterTrails = () => {
+    // Isn't working with Upper Case Letters
     return this.state.trailArray.filter(trail => trail.name.toLowerCase().includes(this.state.search))
   }
 
 
-
   render() {  
-    console.log("state:", this.state)
     return (
       <div className="App">
           <NavBar />
@@ -39,7 +39,7 @@ class App extends React.Component {
           <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} searchHandler={this.searchHandler}/>} />
           <Route path="/users" render={() => <User trails={this.filterTrails()}/>} />
           <Route path="/login" />
-          <Route path="/" render={() => <h1>Welcome!</h1>}/>
+          <Route path="/" render={() => <Home />}/>
         </Switch>
       </div>
     );
