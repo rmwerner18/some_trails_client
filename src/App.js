@@ -29,9 +29,10 @@ class App extends React.Component {
     return this.state.trailArray.filter(trail => trail.name.toLowerCase().includes(this.state.search.toLowerCase()))
   }
 
-
-  render() {  
-    return (
+  render() {
+    return this.state.trailArray.length > 0  
+    ?
+    <>
       <div className="App">
           <NavBar />
         <Switch>
@@ -41,7 +42,9 @@ class App extends React.Component {
           <Route path="/" render={() => <Home />}/>
         </Switch>
       </div>
-    );
+    </>
+    :
+    "loading"
   }
 }
 

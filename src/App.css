@@ -13,8 +13,19 @@
   margin: 10px;
 }
 
+
 body {
   background-color: #F2E8CF;
+}
+
+.hike-card img {
+  width: 100px;
+  height: auto;
+}
+
+.hike-card span:hover{
+  color: blue;
+  text-decoration: underline;
 }
 
 /* .trail-card-front {

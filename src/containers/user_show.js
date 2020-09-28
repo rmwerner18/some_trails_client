@@ -25,10 +25,10 @@ class User extends React.Component {
             <img src={this.state.user.image} alt={this.state.user.username}/>
             <h4>About Me: {this.state.user.bio}</h4>
             <HikeForm trails={this.props.trails}/>
-            <HikeContainer hikes={this.state.user.hikes}/>
+            <HikeContainer hikes={this.state.user.hikes} trails={this.props.trails} />
             </>
             :
-            null 
+            "loading" 
         )
     }
         

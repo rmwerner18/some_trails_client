@@ -8,7 +8,10 @@ class HikeForm extends React.Component {
     state = {
         photo: null,
         name: "",
-        length: ""
+        length: "",
+        startTime: "",
+        endTime: "",
+        trail: ""
     }
 
     changeHandler = (e) => {
@@ -36,12 +39,15 @@ class HikeForm extends React.Component {
 
     submitHandler = (e) => {
         e.preventDefault()
+        let trail = () => this.props.trails.find(trail => trail.name === this.state.trail)
         let formData = new FormData()
         formData.append('hike[photo]', this.state.photo)
         formData.append('hike[name]', this.state.name)
         formData.append('hike[length]', this.state.length)
+        formData.append('hike[start]', this.state.startTime)
+        formData.append('hike[end]', this.state.endTime)
+        formData.append('hike[trail_id]', trail().id)
         formData.append('hike[user_id]', 3)
-        formData.append('hike[trail_id]', 9)
         let request = new XMLHttpRequest();
         request.open("POST", "http://localhost:3000/hikes");
         request.send(formData)
@@ -57,26 +63,26 @@ class HikeForm extends React.Component {
         console.log(this.state)
         return(
             <>
-            <form>
+            <form onSubmit={this.submitHandler}>
             <fieldset>
                 <legend>Log a recent hike</legend>
                     <input type="text" name="name" onChange={this.changeHandler} value={this.state.name} placeholder="Name Your Hike" />
-                    <input list="browsers" name="browser" placeholder="Where was your hike"/>
+                    <input list="browsers" name="trail" placeholder="Where was your hike" onChange={this.changeHandler} value={this.state.trail} />
                     {/* <label for="browser">Where was your hike</label> */}
                     <datalist id="browsers">
                     {this.mapTrails()}
                     </datalist><br></br>
-                    <input type="number" name="length" step="0.01" onChange={this.changeHandler} value={this.state.name} placeholder="How many miles was your hike" /><br></br>
-                    <input type="datetime-local" id="start-time" name="start-time" />
+                    <input type="number" name="length" step="0.1" onChange={this.changeHandler} value={this.state.length} placeholder="How many miles was your hike" /><br></br>
+                    <input type="datetime-local" id="start-time" name="startTime" onChange={this.changeHandler} value={this.state.startTime}/>
                     <label for="start-time">Start date and time</label><br></br>
-                    <input type="datetime-local" id="end-time" name="end-time" />
+                    <input type="datetime-local" id="end-time" name="endTime" onChange={this.changeHandler} value={this.state.endTime}/>
                     <label for="end-time">End date and time</label><br></br>
                     <input type="file" name="photo" onChange={this.changeHandler} />
+                    <img src={this.state.selectedFile}/>
                     <input type="submit" value="Post your hike"/>
                 </fieldset>
 
-            {/* <img src={this.state.selectedFile}/>
-            <form onSubmit={this.submitHandler}>
+            {/* <form onSubmit={this.submitHandler}>
                 <h3>Log a recent hike!</h3>
                 {/* <button width="100%" type="button" className="btn btn-info" onClick={this.fileUploadHandler}>Upload File</button> */}
                 {/* <input type="submit" value="Post your hike"/> */}
