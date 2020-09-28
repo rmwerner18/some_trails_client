@@ -26,8 +26,7 @@ class App extends React.Component {
   }
 
   filterTrails = () => {
-    // Isn't working with Upper Case Letters
-    return this.state.trailArray.filter(trail => trail.name.toLowerCase().includes(this.state.search))
+    return this.state.trailArray.filter(trail => trail.name.toLowerCase().includes(this.state.search.toLowerCase()))
   }
 
 

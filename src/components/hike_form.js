@@ -60,20 +60,19 @@ class HikeForm extends React.Component {
             <form>
             <fieldset>
                 <legend>Log a recent hike</legend>
-                    <input type="text" placeholder="Name Your Hike"/><br></br>
+                    <input type="text" name="name" onChange={this.changeHandler} value={this.state.name} placeholder="Name Your Hike" />
                     <input list="browsers" name="browser" placeholder="Where was your hike"/>
                     {/* <label for="browser">Where was your hike</label> */}
                     <datalist id="browsers">
                     {this.mapTrails()}
                     </datalist><br></br>
-                    <input type="text" name="name" onChange={this.changeHandler} value={this.state.name} placeholder="Name Your Hike" />
                     <input type="number" name="length" step="0.01" onChange={this.changeHandler} value={this.state.name} placeholder="How many miles was your hike" /><br></br>
                     <input type="datetime-local" id="start-time" name="start-time" />
                     <label for="start-time">Start date and time</label><br></br>
                     <input type="datetime-local" id="end-time" name="end-time" />
                     <label for="end-time">End date and time</label><br></br>
-                    <input type="submit" value="Post your hike"/>
                     <input type="file" name="photo" onChange={this.changeHandler} />
+                    <input type="submit" value="Post your hike"/>
                 </fieldset>
 
             {/* <img src={this.state.selectedFile}/>
