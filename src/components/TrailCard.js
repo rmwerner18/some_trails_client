@@ -4,12 +4,19 @@ class TrailCard extends React.Component {
     state = {
     }
 
-    clickHandler = () => {
-        document.getElementById('myModal').style.display = "block"
-    }
+    // clickHandler = () => {
+    //     document.getElementById('myModal').style.display = "block"
+    // }
 
     closeHandler = () => {
         document.getElementById('myModal').style.display = "none"
+    }
+
+    faveHandler = (e) => {
+        e.persist();
+        // console.log("favorites", e)
+        // console.log("trail", this.props.trail)
+        this.props.faveHandler(this.props.trail)
     }
 
     difficultyRender = () => {
@@ -40,10 +47,13 @@ class TrailCard extends React.Component {
                 </div>
                 <div className="trail-card-front" onClick={this.clickHandler}>
                     <img src={this.props.trail.image} alt={this.props.trail.name}/>
-                    <h4>{this.props.trail.name}</h4>
+                    <h4>
+                        {this.props.trail.name}        
+                    </h4>
                     {this.difficultyRender()}
                     <p>Location: {this.props.trail.location}</p>
                     <p>Summary: {this.props.trail.summary}</p>
+                    <img alt="BookMark" onClick={this.faveHandler} width="20px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn3.iconfinder.com%2Fdata%2Ficons%2Fweb-31%2F24%2Fsave-512.png&f=1&nofb=1"/>
                 </div>
             </div>
         )
