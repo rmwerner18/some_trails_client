@@ -6,37 +6,24 @@ class HikeForm extends React.Component {
 
 
     state = {
-        selectedFile: null
+        photo: null,
+        name: "",
+        length: ""
     }
 
     changeHandler = (e) => {
-        e.persist();
-        // console.log("change", e.target.files, e.target.value)
-        // let file = e.target.files[0];
-        // console.log("file:", file);
-        // console.log(this.validateSize(e));
-        // if(this.validateSize(e)){ 
-        // console.log(file);
-        // if return true allow to setState
-        // this.setState({
-        // selectedFile: file
-        // });
+        if (e.target.files) {
+            let photo = e.target.files[0];
+            this.setState({
+                photo: photo
+            })
+        } else {
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+        }
     }
-    
-
-    fileUploadHandler = () => {
-        // const data = new FormData()
-        // console.log("state:", this.state.selectedFile);
-        // data.append('file', this.state.selectedFile)
-        // console.log("form data", data);
-        // axios.post("http://localhost:3000/hikes", data)
-        // .then(res => { // then print response status
-        //     toast.success('upload success')
-        // })
-        // .catch(err => { // then print response status
-        //     toast.error('upload fail')
-        // })
-    }
+     
 
     mapTrails = () => {  
         // makes sure the trail names are unique, wont be an issue with api
@@ -45,9 +32,29 @@ class HikeForm extends React.Component {
         // w/ api, do: this.props.trails.map(trail => <option value={trail.name} />)
         return unique.map(trail => <option value={trail}/>)
     }
+    
+
+    submitHandler = (e) => {
+        e.preventDefault()
+        let formData = new FormData()
+        formData.append('hike[photo]', this.state.photo)
+        formData.append('hike[name]', this.state.name)
+        formData.append('hike[length]', this.state.length)
+        formData.append('hike[user_id]', 3)
+        formData.append('hike[trail_id]', 9)
+        let request = new XMLHttpRequest();
+        request.open("POST", "http://localhost:3000/hikes");
+        request.send(formData)
+        // this.refreshPage()
+    }
+
+    refreshPage = () => {
+        window.location.reload(false)
+    }
 
 
     render() {
+        console.log(this.state)
         return(
             <>
             <form>
@@ -59,15 +66,21 @@ class HikeForm extends React.Component {
                     <datalist id="browsers">
                     {this.mapTrails()}
                     </datalist><br></br>
-                    <input type="number" step="0.01" placeholder="How many miles was your hike" /><br></br>
+                    <input type="text" name="name" onChange={this.changeHandler} value={this.state.name} placeholder="Name Your Hike" />
+                    <input type="number" name="length" step="0.01" onChange={this.changeHandler} value={this.state.name} placeholder="How many miles was your hike" /><br></br>
                     <input type="datetime-local" id="start-time" name="start-time" />
                     <label for="start-time">Start date and time</label><br></br>
                     <input type="datetime-local" id="end-time" name="end-time" />
                     <label for="end-time">End date and time</label><br></br>
-                    <input type="file" onChange={this.changeHandler}/>
-                    <button width="100%" type="button" className="btn btn-info" onClick={this.fileUploadHandler}>Upload File</button><br></br>
                     <input type="submit" value="Post your hike"/>
+                    <input type="file" name="photo" onChange={this.changeHandler} />
                 </fieldset>
+
+            {/* <img src={this.state.selectedFile}/>
+            <form onSubmit={this.submitHandler}>
+                <h3>Log a recent hike!</h3>
+                {/* <button width="100%" type="button" className="btn btn-info" onClick={this.fileUploadHandler}>Upload File</button> */}
+                {/* <input type="submit" value="Post your hike"/> */}
             </form>
             </>
         )
