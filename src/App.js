@@ -9,10 +9,9 @@ import User from './containers/user_show';
 class App extends React.Component {
   
   state = {
-    trailArray: []
+    trailArray: [],
+    search: ""
   }
-  
-  
   
   componentDidMount = () => {
     fetch('http://localhost:3000/trails')
@@ -20,6 +19,14 @@ class App extends React.Component {
     .then(trails => this.setState({trailArray: trails}))
   }
 
+  searchHandler = (searchString) => {
+    this.setState({search: searchString})
+    this.filterTrails()
+  }
+
+  filterTrails = () => {
+    return this.state.trailArray.filter(trail => trail.name.toLowerCase().includes(this.state.search))
+  }
 
 
 
@@ -29,8 +36,8 @@ class App extends React.Component {
       <div className="App">
           <NavBar />
         <Switch>
-          <Route path="/trails" render={() => <TrailsContainer trails={this.state.trailArray}/>} />
-          <Route path="/users" render={() => <User trails={this.state.trailArray}/>} />
+          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} searchHandler={this.searchHandler}/>} />
+          <Route path="/users" render={() => <User trails={this.filterTrails()}/>} />
           <Route path="/login" />
           <Route path="/" render={() => <h1>Welcome!</h1>}/>
         </Switch>

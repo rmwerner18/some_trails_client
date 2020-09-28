@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+// import SearchTrails from '../components/search_trail_form'
 
 const link = {
   width: '100px',
@@ -40,6 +41,7 @@ class NavBar extends React.Component {
           style={link}
           activeStyle={{background: '#6A994E'}}>
         Welcome!</NavLink>
+        {/* <SearchTrails /> */}
       </div>
     );
   }
