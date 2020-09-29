@@ -25,8 +25,8 @@ class HikeForm extends React.Component {
                 photo: hike.photo,
                 name: hike.name,
                 length: hike.length,
-                start: Date.parse(hike.start),
-                end: Date.parse(hike.end),
+                start: hike.start,
+                end: hike.end,
                 trail: findTrailById(hike.id), 
                 trail_id: this.props.hike.trail_id
             })
@@ -62,18 +62,20 @@ class HikeForm extends React.Component {
 
     submitHandler = (e) => {
         this.props.submitHandler(e, this.state)
-        // this.setState({
-        //     photo: null,
-        //     name: "",
-        //     length: "",
-        //     start: "",
-        //     end: "",
-        //     trail: ""
-        // })
+        this.setState({
+            photo: null,
+            name: "",
+            length: "",
+            start: "",
+            end: "",
+            trail: ""
+        })
     }
 
 
     render() {
+        console.log("start:", this.state.start)
+        console.log("end:", this.state.end)
         return(
             <>
             <form onSubmit={(e) => this.submitHandler(e)}>
@@ -90,16 +92,11 @@ class HikeForm extends React.Component {
                     {this.mapTrails()}
                     </datalist><br></br>
                     <input type="number" name="length" step="0.1" onChange={this.changeHandler} value={this.state.length} placeholder="How many miles was your hike" /><br></br>
-                    <input type="datetime-local" id="start-time" name="start" onChange={this.changeHandler} value={this.state.start}/>
+                    <input type="datetime-local" id="start-time" name="start" onChange={this.changeHandler} value={this.state.start} placeholder={this.state.start}/>
                     <label for="start-time">Start date and time</label><br></br>
                     <input type="datetime-local" id="end-time" name="end" onChange={this.changeHandler} value={this.state.end}/>
                     <label for="end-time">End date and time</label><br></br>
-                    {this.props.hike 
-                    ?
-                    null
-                    :
                     <input type="file" name="photo" onChange={this.changeHandler} />
-                    }
                     {this.props.hike 
                     ?
                     <button type="button" onClick={this.editHandler}>Submit Changes</button>

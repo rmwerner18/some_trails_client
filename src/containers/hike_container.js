@@ -19,29 +19,12 @@ class HikeContainer extends React.Component {
         }
     }
 
-    closeHandler = () => {
-        document.getElementById('myModal').style.display = "none"
-    }
-
     hikes = () => {
-        return this.state.hikes.map(hike => <HikeCard key={hike.id} hike={hike} trails={this.props.trails} deleteHandler={this.deleteHandler} editHandler={this.props.editHandler}/>)
+        return this.state.hikes.map(hike => <HikeCard key={hike.id} hike={hike} trails={this.props.trails} deleteHandler={this.deleteHandler} editHandler={this.props.editHandler} />)
     }
 
     render() {
-        return <>
-        {this.state.edit 
-        ?
-        <div id="myModal" className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={this.closeHandler}>&times;</span>
-                
-            </div>
-        </div>
-        :
-        null
-        }
-        {this.hikes()}
-        </>
+        return this.hikes()
     }
 }
 

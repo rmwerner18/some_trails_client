@@ -27,6 +27,7 @@ class HikeCard extends React.Component {
         this.setState(previousState => ({isInEditMode: !previousState.isInEditMode}))
     }
     
+
     render() {
         return (
             <div className="hike-card">
