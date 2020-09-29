@@ -19,6 +19,12 @@ class App extends React.Component {
     fetch('http://localhost:3000/trails')
     .then(resp => resp.json())
     .then(trails => this.setState({trailArray: trails}))
+
+    fetch("http://localhost:3000/favorites")
+    .then(resp => resp.json())
+    .then(faves => this.setState({
+      faveArray: [faves, ...this.state.faveArray]
+    }))
   }
 
   searchHandler = (searchString) => {
@@ -29,21 +35,38 @@ class App extends React.Component {
   filterTrails = () => {
     return this.state.trailArray.filter(trail => trail.name.toLowerCase().includes(this.state.search.toLowerCase()))
   }
-
+  
+  
   faveHandler = (faveTrail) => {
-    // console.log("fave in app", faveTrail)
-    // console.log("clicking: ", faveTrail)
-    if (this.state.faveArray.includes(faveTrail)) {
-    } else {
-      this.setState(() => ({
-        faveArray: [faveTrail, ...this.state.faveArray]
-      }))
-    }
+    let object = {
+      user_id: 3,
+      trail_id: faveTrail.id}
+
+    let options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': "application/json"},
+      body: JSON.stringify(object)}
+
+    fetch("http://localhost:3000/favorites", options)
+    .then(resp => resp.json())
+    .then(console.log)
+    // console.log("object:", object, "options:", options)
+
+    // UNCOMMENT ONCE YOU FIGURE OUT HOW TO DELETE
+    // if (this.state.faveArray.includes(faveTrail)) {
+    // } else {
+    //   this.setState(() => ({
+    //     faveArray: [faveTrail, ...this.state.faveArray]
+    //   }))
+    // }
+
   }
 
 
   render() { 
-    // console.log("faves in app", this.state.faveArray) 
+    console.log("faves in app", this.state.faveArray) 
      return this.state.trailArray.length > 0  
      ?
      <>

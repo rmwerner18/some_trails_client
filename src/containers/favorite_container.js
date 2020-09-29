@@ -3,33 +3,28 @@ import TrailCard from '../components/TrailCard'
 
 export default class FavoriteContainer extends React.Component {
     
-    renderFaves = () => {
-        return this.props.faves.map(fave => <TrailCard key={fave.id} trail={fave} />)
-        // console.log("trail", this.trail)
-        // this.postFavorites(this.trail)
+    state = {
+        faveArray: []
+    }
+    
+    mapFaves = () => {
+        return this.state.faveArray.map(fave => <TrailCard key={fave.trail_id} trail={fave.trail_id} />)
     }
 
-    postFavorites = () => {
-
-        // let options = {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json;charset=utf-8'
-        //     },
-        //     body: JSON.stringify({trail_id: this.props.trail.id})
-        // }
-        
-        // fetch("http://localhost:3000/favorites", options)
-        // .then(resp => resp.json())
-        // .then()
+    componentDidMount = () => {
+        fetch("http://localhost:3000/favorites")
+        .then(resp => resp.json())
+        .then(faves => this.setState({
+            faveArray: faves
+        }))
     }
     
     render() {
-        // console.log("faves in faves", this.props.faves)
+        console.log("faves in faves", this.state.faveArray)
         return(
             <div>
                 <h3>Bookmarked Trails:</h3>
-                {this.renderFaves()}
+                {this.mapFaves()}
             </div>
         )
     }

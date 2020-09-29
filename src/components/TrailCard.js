@@ -36,7 +36,7 @@ class TrailCard extends React.Component {
     }
 
     render() {
-        console.log(this.props.trail.difficulty)
+        // console.log(this.props.trail.difficulty)
         return(
             <div className="trail-card">
                 <div id="myModal" className="modal">
