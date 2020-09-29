@@ -14,7 +14,7 @@ export default class FavoriteContainer extends React.Component {
             .then (resp => resp.json())
             .then(trail => this.setState({favedTrails: [...this.state.favedTrails, trail]}))
             // .then(console.log)
-            )
+        )
     }
 
     componentDidMount = () => {
