@@ -13,7 +13,6 @@ export default class TrailsContainer extends React.Component {
     }
 
     faveHandler = (faveTrail) => {
-        // console.log("fave trail in container", faveTrail)
         this.props.faveHandler(faveTrail)
     }
 

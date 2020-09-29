@@ -4,9 +4,9 @@ class TrailCard extends React.Component {
     state = {
     }
 
-    // clickHandler = () => {
-    //     document.getElementById('myModal').style.display = "block"
-    // }
+    clickHandler = () => {
+        document.getElementById('myModal').style.display = "block"
+    }
 
     closeHandler = () => {
         document.getElementById('myModal').style.display = "none"
@@ -36,7 +36,6 @@ class TrailCard extends React.Component {
     }
 
     render() {
-        // console.log(this.props.trail.difficulty)
         return(
             <div className="trail-card">
                 <div id="myModal" className="modal">
@@ -45,8 +44,8 @@ class TrailCard extends React.Component {
                         <p id="modal-text">{this.props.trail.name}</p>
                     </div>
                 </div>
-                <div className="trail-card-front" onClick={this.clickHandler}>
-                    <img src={this.props.trail.image} alt={this.props.trail.name}/>
+                <div className="trail-card-front">
+                    <img src={this.props.trail.image}  onClick={this.clickHandler} alt={this.props.trail.name}/>
                     <h4>
                         {this.props.trail.name}        
                     </h4>
