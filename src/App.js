@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import TrailsContainer from './containers/TrailsContainer'
 import { Route, Switch } from 'react-router-dom'
@@ -41,6 +40,7 @@ class App extends React.Component {
     }
   }
 
+  
 
   render() { 
     // console.log("faves in app", this.state.faveArray) 
@@ -51,14 +51,14 @@ class App extends React.Component {
           <NavBar />
         <Switch>
           <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
-          <Route path="/users" render={() => <User trails={this.filterTrails()} faves={this.state.faveArray}/>} />
+          <Route path="/users" render={() => <User trails={this.filterTrails()} faves={this.state.faveArray} />} />
           <Route path="/login" />
           <Route path="/" render={() => <Home />}/>
         </Switch>
       </div>
     </>
     :
-    "loading"
+    "loading..."
   }
 }
 

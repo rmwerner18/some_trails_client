@@ -9,9 +9,28 @@ class HikeForm extends React.Component {
         photo: null,
         name: "",
         length: "",
-        startTime: "",
-        endTime: "",
+        start: "",
+        end: "",
         trail: ""
+    }
+
+    componentDidMount = () => {
+        if (this.props.hike) {
+            let findTrailById = () => {
+                let trail = this.props.trails.find(trail => trail.id === this.props.hike.trail_id)
+                return trail.name
+            }        
+            let hike = this.props.hike
+            this.setState({
+                photo: hike.photo,
+                name: hike.name,
+                length: hike.length,
+                start: Date.parse(hike.start),
+                end: Date.parse(hike.end),
+                trail: findTrailById(hike.id), 
+                trail_id: this.props.hike.trail_id
+            })
+        }
     }
 
     changeHandler = (e) => {
@@ -26,8 +45,7 @@ class HikeForm extends React.Component {
             })
         }
     }
-     
-
+    
     mapTrails = () => {  
         // makes sure the trail names are unique, wont be an issue with api
         let names = this.props.trails.map(trail => trail.name)
@@ -37,55 +55,60 @@ class HikeForm extends React.Component {
     }
     
 
-    submitHandler = (e) => {
-        e.preventDefault()
-        let trail = () => this.props.trails.find(trail => trail.name === this.state.trail)
-        let formData = new FormData()
-        formData.append('hike[photo]', this.state.photo)
-        formData.append('hike[name]', this.state.name)
-        formData.append('hike[length]', this.state.length)
-        formData.append('hike[start]', this.state.startTime)
-        formData.append('hike[end]', this.state.endTime)
-        formData.append('hike[trail_id]', trail().id)
-        formData.append('hike[user_id]', 3)
-        let request = new XMLHttpRequest();
-        request.open("POST", "http://localhost:3000/hikes");
-        request.send(formData)
-        // this.refreshPage()
+
+    editHandler = () => {
+        this.props.editHandler(this.props.hike.id, this.state)
     }
 
-    refreshPage = () => {
-        window.location.reload(false)
+    submitHandler = (e) => {
+        this.props.submitHandler(e, this.state)
+        // this.setState({
+        //     photo: null,
+        //     name: "",
+        //     length: "",
+        //     start: "",
+        //     end: "",
+        //     trail: ""
+        // })
     }
 
 
     render() {
+        console.log(this.props)
         console.log(this.state)
         return(
             <>
-            <form onSubmit={this.submitHandler}>
+            <form onSubmit={(e) => this.submitHandler(e)}>
             <fieldset>
+                {this.props.hike 
+                ?
+                <legend>Edit Hike</legend>
+                :
                 <legend>Log a recent hike</legend>
+                }
                     <input type="text" name="name" onChange={this.changeHandler} value={this.state.name} placeholder="Name Your Hike" />
                     <input list="browsers" name="trail" placeholder="Where was your hike" onChange={this.changeHandler} value={this.state.trail} />
-                    {/* <label for="browser">Where was your hike</label> */}
                     <datalist id="browsers">
                     {this.mapTrails()}
                     </datalist><br></br>
                     <input type="number" name="length" step="0.1" onChange={this.changeHandler} value={this.state.length} placeholder="How many miles was your hike" /><br></br>
-                    <input type="datetime-local" id="start-time" name="startTime" onChange={this.changeHandler} value={this.state.startTime}/>
+                    <input type="datetime-local" id="start-time" name="start" onChange={this.changeHandler} value={this.state.start}/>
                     <label for="start-time">Start date and time</label><br></br>
-                    <input type="datetime-local" id="end-time" name="endTime" onChange={this.changeHandler} value={this.state.endTime}/>
+                    <input type="datetime-local" id="end-time" name="end" onChange={this.changeHandler} value={this.state.end}/>
                     <label for="end-time">End date and time</label><br></br>
+                    {this.props.hike 
+                    ?
+                    null
+                    :
                     <input type="file" name="photo" onChange={this.changeHandler} />
-                    <img src={this.state.selectedFile}/>
+                    }
+                    {this.props.hike 
+                    ?
+                    <button type="button" onClick={this.editHandler}>Submit Changes</button>
+                    :
                     <input type="submit" value="Post your hike"/>
+                    }
                 </fieldset>
-
-            {/* <form onSubmit={this.submitHandler}>
-                <h3>Log a recent hike!</h3>
-                {/* <button width="100%" type="button" className="btn btn-info" onClick={this.fileUploadHandler}>Upload File</button> */}
-                {/* <input type="submit" value="Post your hike"/> */}
             </form>
             </>
         )

@@ -18,10 +18,20 @@ body {
   background-color: #F2E8CF;
 }
 
+.hike-card {
+  display: flex;
+  border-style: ridge;
+  width: 50%
+}
 .hike-card img {
   width: 100px;
   height: auto;
 }
+
+.hike-card img:hover {
+  background-color: #000000;
+  opacity: 0.5;
+} 
 
 .hike-card span:hover{
   color: blue;
