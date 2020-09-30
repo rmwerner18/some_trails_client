@@ -21,9 +21,11 @@ class App extends React.Component {
 
     fetch("http://localhost:3000/favorites")
     .then(resp => resp.json())
-    .then(faves => this.setState({
-      faveArray: [faves, ...this.state.faveArray]
+    .then(
+      faves => this.setState(previousState => ({
+      faveArray: previousState.faveArray.concat(faves)
     }))
+    )
   }
 
   searchHandler = (searchString) => {
@@ -37,6 +39,20 @@ class App extends React.Component {
   
   
   faveHandler = (faveTrail) => {
+    console.log("faveTrail.favorites:", faveTrail.favorites)
+    let favorite = this.state.faveArray.find(fave => fave.user_id === 3 || fave.trail_id === faveTrail.id)
+    console.log("favorite", favorite)
+    if (favorite) {
+      console.log("**UNFAVORITED**")
+      let newArray = this.state.faveArray
+      let index = newArray.findIndex(fav => fav.id === favorite.id)
+      newArray.splice(index, 1)
+      this.setState({faveArray: newArray})
+      fetch(`http://localhost:3000/favorites/${favorite.id}`, {
+        method: "DELETE"
+      })
+    } else {
+      console.log('**FAVORITED**')
     let object = {
       user_id: 3,
       trail_id: faveTrail.id}
@@ -50,23 +66,27 @@ class App extends React.Component {
 
     fetch("http://localhost:3000/favorites", options)
     .then(resp => resp.json())
-    .then(console.log)
+    .then(result => {console.log("newfaves:", result)
+    this.setState(() => ({
+      faveArray: [result, ...this.state.faveArray]
+    }))})
     // console.log("object:", object, "options:", options)
 
     // UNCOMMENT ONCE YOU FIGURE OUT HOW TO DELETE
     // if (this.state.faveArray.includes(faveTrail)) {
     // } else {
-    //   this.setState(() => ({
-    //     faveArray: [faveTrail, ...this.state.faveArray]
-    //   }))
+      // this.setState(() => ({
+      //   faveArray: [result, ...this.state.faveArray]
+      // }))
     // }
-
+      }
+    console.log('***********************')
   }
 
   
 
   render() { 
-    console.log("faves in app", this.state.faveArray) 
+    console.log("this.state.faveArray:", this.state.faveArray) 
      return this.state.trailArray.length > 0  
      ?
      <>
