@@ -15,7 +15,7 @@ class App extends React.Component {
   }
   
   componentDidMount = () => {
-    fetch('http://localhost:3000/trails/?name=${form.value}')
+    fetch('http://localhost:3000/trails')
     .then(resp => resp.json())
     .then(trails => this.setState({trailArray: trails}))
 
@@ -40,7 +40,7 @@ class App extends React.Component {
   
   faveHandler = (faveTrail) => {
     console.log("faveTrail.favorites:", faveTrail.favorites)
-    let favorite = this.state.faveArray.find(fave => fave.user_id === 3 || fave.trail_id === faveTrail.id)
+    let favorite = this.state.faveArray.find(fave => fave.user_id === 3 && fave.trail_id === faveTrail.id)
     console.log("favorite", favorite)
     if (favorite) {
       console.log("**UNFAVORITED**")
@@ -83,8 +83,11 @@ class App extends React.Component {
     console.log('***********************')
   }
 
-  locationSearchHandler = (searchterm) => {
-    console.log("searchTerm in app:", searchterm)
+  locationSubmitHandler = (searchTerm) => {
+    console.log("searchTerm in app:", searchTerm)
+    fetch(`http://localhost:3000/trails/?location=${searchTerm}`)
+    .then(resp => resp.json())
+    .then(trails => this.setState({trailArray: trails}))
   }
 
   
@@ -97,7 +100,7 @@ class App extends React.Component {
       <div className="App">
           <NavBar />
         <Switch>
-          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} locationSearchHandler={this.locationSearchHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
+          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} locationSubmitHandler={this.locationSubmitHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
           <Route path="/users" render={() => <User trails={this.filterTrails()} faves={this.state.faveArray} faveHandler={this.faveHandler}/>} />
           <Route path="/login" />
           <Route path="/" render={() => <Home />}/>

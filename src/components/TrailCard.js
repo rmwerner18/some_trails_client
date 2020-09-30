@@ -47,10 +47,8 @@ class TrailCard extends React.Component {
         } else if (this.props.trail.difficulty === "black"){
             return <img src="https://i.imgur.com/dt0g4fb.png?1" alt={this.props.trail.difficulty}/>
         } else if (this.props.trail.difficulty === "green"){
-            // don't know if it's called "green"
             return <img src="https://i.imgur.com/0V3ED1p.png" alt={this.props.trail.difficulty}/>
         } else if (this.props.trail.difficulty === "greenBlue"){
-            // don't know if its called "greenBlue"
             return <img src="https://i.imgur.com/IBiL4ow.png" alt={this.props.trail.difficulty}/>
         }
     }
