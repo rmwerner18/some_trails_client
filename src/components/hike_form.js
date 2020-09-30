@@ -58,6 +58,7 @@ class HikeForm extends React.Component {
 
     editHandler = () => {
         this.props.editHandler(this.props.hike.id, this.state)
+        this.props.changeEditMode()
     }
 
     submitHandler = (e) => {

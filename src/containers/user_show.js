@@ -37,7 +37,17 @@ class User extends React.Component {
         let newArray = this.state.user.hikes
         let index = newArray.findIndex(hike => hike.id === id)
         newArray.splice(index, 1, result)
-        this.setState({user: {hikes: newArray}})
+        this.setState(previousState => (
+            {user: {
+                hikes: newArray,
+                bio: previousState.user.bio,
+                favorites: previousState.user.favorites,
+                id: previousState.user.id,
+                image: previousState.user.image,
+                password_digest: previousState.user.password_digest,
+                username: previousState.user.username,
+            }}
+        ))
         alert('Your changes have been saved!')
         })
     }
@@ -65,11 +75,22 @@ class User extends React.Component {
           console.log('result:', result);
         let newArray = this.state.user.hikes
         newArray.push(result)
-        this.setState({user: {hikes: newArray}})
+        this.setState(previousState => (
+            {user: {
+                hikes: newArray,
+                bio: previousState.user.bio,
+                favorites: previousState.user.favorites,
+                id: previousState.user.id,
+                image: previousState.user.image,
+                password_digest: previousState.user.password_digest,
+                username: previousState.user.username,
+            }}
+        ))
         })
     }
 
     render() {
+        console.log(this.state.user)
         return (
             this.state.user.hikes
             ?

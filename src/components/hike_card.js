@@ -5,7 +5,8 @@ import HikeForm from './hike_form'
 class HikeCard extends React.Component {
 
     state = {
-        isInEditMode: false
+        isInEditMode: false,
+        imageURL: `http://localhost:3000/hikes/${this.props.hike.id}/photo`
     }
 
     findTrailById = () => {
@@ -26,9 +27,15 @@ class HikeCard extends React.Component {
     changeEditMode = () => {
         this.setState(previousState => ({isInEditMode: !previousState.isInEditMode}))
     }
-    
+
+    fetchPhoto = () => {
+        return fetch(`http://localhost:3000/hikes/129/photo`)
+        .then(resp => resp.json())
+        .then(console.log)
+    }
 
     render() {
+        console.log("rendering hike card", this.state.imageURL)
         return (
             <div className="hike-card">
 
@@ -40,13 +47,13 @@ class HikeCard extends React.Component {
                 </div>
 
                 <div className="hike-card-photo">
-                    <img src={`http://localhost:3000/hikes/${this.props.hike.id}/photo`} alt="hike pic" onClick={this.modalHandler} />
+                    <img src={this.state.imageURL} alt="hike pic" onClick={this.modalHandler} />
                 </div>
 
                 {this.state.isInEditMode 
                 ?
                 <div className="edit-hike-card-content" onDoubleClick={this.changeEditMode}>
-                    <HikeForm hike={this.props.hike} trails={this.props.trails} editHandler={this.props.editHandler}/>
+                    <HikeForm hike={this.props.hike} trails={this.props.trails} editHandler={this.props.editHandler} changeEditMode={this.changeEditMode} />
                 </div>    
                 :
                 <div className="hike-card-content" onDoubleClick={this.changeEditMode}>
