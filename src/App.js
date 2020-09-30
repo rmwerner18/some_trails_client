@@ -15,7 +15,7 @@ class App extends React.Component {
   }
   
   componentDidMount = () => {
-    fetch('http://localhost:3000/trails')
+    fetch('http://localhost:3000/trails/?name=${form.value}')
     .then(resp => resp.json())
     .then(trails => this.setState({trailArray: trails}))
 
