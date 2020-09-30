@@ -1,17 +1,14 @@
 import React from "react"
 
 class SearchTrailLocations extends React.Component {
-
-    state ={
+    state = {
         search: ""
     }
-
     changeHandler = (e) => {
         console.log("lookin for trails")
         this.setState({search: e.target.value})
         this.props.locationSearchHandler(e.target.value)
     }
-
     render() {
         console.log("state in SearchTrailLocations:", this.state.search)
         return(
@@ -24,5 +21,4 @@ class SearchTrailLocations extends React.Component {
         )
     }
 }
-
 export default SearchTrailLocations
