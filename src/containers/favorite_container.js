@@ -44,10 +44,12 @@ export default class FavoriteContainer extends React.Component {
     render() {
         // console.log("faves in faves", this.state)
         return(
-            <div>
-                <h3>Bookmarked Trails:</h3>
-                {this.mapFavedTrails()}
-            </div>
+            <>
+                <h3 className='fav-head'>Bookmarked Trails:</h3>
+                <div className='favorite-container'>
+                    {this.mapFavedTrails()}
+                </div>
+            </>
         )
     }
 
