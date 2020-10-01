@@ -13,6 +13,10 @@ class App extends React.Component {
     search: "",
     faveArray: []
   }
+
+
+
+
   
   componentDidMount = () => {
     fetch('http://localhost:3000/trails')
@@ -26,6 +30,27 @@ class App extends React.Component {
       faveArray: previousState.faveArray.concat(faves)
     }))
     )
+
+
+    let person = {
+      username: "sylvia",
+      password: "whatscooking",
+      bio: "Sylvia Woods was an American restaurateur who founded the sould food restaurant Sylvia's in Harlem on Lenox Avenue, New York City in 1962. She published two cookbooks and was an important figure in the community.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/4/49/Syvia_of_Sylvia%27s_reaturant_N.Y.C_%28cropped%29.jpg"
+    }
+
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({user: person})
+    })
+      .then(r => r.json())
+      .then(console.log)
+
+
   }
 
   searchHandler = (searchString) => {
