@@ -22,7 +22,8 @@ export default class TrailsContainer extends React.Component {
     // }
 
     render() {
-        return (
+        return this.props.trails.length > 0  
+        ?
             <div className="trails-container">
                 <div>
                     <SearchTrailLocations locationSubmitHandler={this.props.locationSubmitHandler} />
@@ -30,7 +31,8 @@ export default class TrailsContainer extends React.Component {
                 </div>
                 {this.trailGenerator()}
             </div>
-        )
+        :
+        "loading..."
     }
 
 }
