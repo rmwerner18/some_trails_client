@@ -11,6 +11,39 @@
 .trail-card {
   border: 1px black;
   margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background: white;
+  border-radius: 5px;
+  width: 400px;
+  height: 700px;
+}
+
+#trail-image {
+  border-radius: 5px 5px 0 0;
+  width: 400px;
+  height: 400px;
+  padding: 0px 0px 0px 0px;
+  object-fit: cover;
+}
+
+.trail-img-div { 
+  height: 400px; 
+  width: 400px; 
+  overflow: hidden; 
+  position: relative;
+}
+
+#trail-name {
+  background-color: #9EC346;
+  color: white;
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+}
+
+.diff-img {
+  margin: auto;
+  width: 400px;
 }
 
 

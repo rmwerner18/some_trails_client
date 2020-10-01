@@ -39,11 +39,11 @@ class App extends React.Component {
   
   
   faveHandler = (faveTrail) => {
-    console.log("faveTrail.favorites:", faveTrail.favorites)
+    // console.log("faveTrail.favorites:", faveTrail.favorites)
     let favorite = this.state.faveArray.find(fave => fave.user_id === 3 && fave.trail_id === faveTrail.id)
-    console.log("favorite", favorite)
+    // console.log("favorite", favorite)
     if (favorite) {
-      console.log("**UNFAVORITED**")
+      // console.log("**UNFAVORITED**")
       let newArray = this.state.faveArray
       let index = newArray.findIndex(fav => fav.id === favorite.id)
       newArray.splice(index, 1)
@@ -52,7 +52,7 @@ class App extends React.Component {
         method: "DELETE"
       })
     } else {
-      console.log('**FAVORITED**')
+      // console.log('**FAVORITED**')
     let object = {
       user_id: 3,
       trail_id: faveTrail.id}
@@ -80,11 +80,11 @@ class App extends React.Component {
       // }))
     // }
       }
-    console.log('***********************')
+    // console.log('***********************')
   }
 
   locationSubmitHandler = (searchTerm) => {
-    console.log("searchTerm in app:", searchTerm)
+    // console.log("searchTerm in app:", searchTerm)
     fetch(`http://localhost:3000/trails/?location=${searchTerm}`)
     .then(resp => resp.json())
     .then(trails => this.setState({trailArray: trails}))
@@ -93,7 +93,7 @@ class App extends React.Component {
   
 
   render() { 
-    console.log("this.state.faveArray:", this.state.faveArray) 
+    // console.log("this.state.faveArray:", this.state.faveArray) 
      return this.state.trailArray.length > 0  
      ?
      <>

@@ -14,7 +14,7 @@ class TrailCard extends React.Component {
                 faveArray: previousState.faveArray.concat(faves)
                 }))
         let favorite = this.state.faveArray.find(fave => fave.user_id === 3 && fave.trail_id === this.props.trail.id)
-        console.log("trailCard favorite:", favorite)
+        // console.log("trailCard favorite:", favorite)
         if (favorite) {
             this.setState({bookmarked: true})
         }
@@ -41,19 +41,19 @@ class TrailCard extends React.Component {
     }
     difficultyRender = () => {
         if (this.props.trail.difficulty === "blue") {
-            return <img src="https://i.imgur.com/mLgjNSV.png" alt={this.props.trail.difficulty}/>
+            return <img className="diff-img" src="https://i.imgur.com/mLgjNSV.png" alt={this.props.trail.difficulty}/>
         } else if (this.props.trail.difficulty === "blueBlack"){
-            return <img src="https://i.imgur.com/6XJd33b.png" alt={this.props.trail.difficulty}/>
+            return <img className="diff-img" src="https://i.imgur.com/6XJd33b.png" alt={this.props.trail.difficulty}/>
         } else if (this.props.trail.difficulty === "black"){
-            return <img src="https://i.imgur.com/dt0g4fb.png?1" alt={this.props.trail.difficulty}/>
+            return <img className="diff-img" src="https://i.imgur.com/dt0g4fb.png?1" alt={this.props.trail.difficulty}/>
         } else if (this.props.trail.difficulty === "green"){
-            return <img src="https://i.imgur.com/0V3ED1p.png" alt={this.props.trail.difficulty}/>
+            return <img className="diff-img" src="https://i.imgur.com/0V3ED1p.png?1" alt={this.props.trail.difficulty}/>
         } else if (this.props.trail.difficulty === "greenBlue"){
-            return <img src="https://i.imgur.com/IBiL4ow.png" alt={this.props.trail.difficulty}/>
+            return <img className="diff-img" src="https://i.imgur.com/IBiL4ow.png?1" alt={this.props.trail.difficulty}/>
         }
     }
     render() {
-        console.log("state in trailCard", this.state.faveArray)
+        // console.log("state in trailCard", this.state.faveArray)
         return(
             <div className="trail-card">
                 {/* <div id="myModal" className="modal">
@@ -63,12 +63,15 @@ class TrailCard extends React.Component {
                     </div>
                 </div> */}
                 <div className="trail-card-front">
-                    <img src={this.props.trail.image}  onClick={this.clickHandler} alt={this.props.trail.name}/>
-                    <h4>
+                    <div id="trail-img-div">
+                <img id="trail-image" src={this.props.trail.image}  onClick={this.clickHandler} alt="Photo of Trail" />
+                    </div>
+                    {this.difficultyRender()}
+                    <h4 id="trail-name">
                         {this.props.trail.name}        
                     </h4>
-                    {this.difficultyRender()}
-                    <p>Location: {this.props.trail.location}</p>
+                    <p>{this.props.trail.location} • {this.props.trail.length} mi • {this.props.trail.stars} stars</p>
+                    
                     <p>Summary: {this.props.trail.summary}</p>
                     {this.bookmarking()}
                 </div>
