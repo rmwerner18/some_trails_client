@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import NavBar from './components/NavBar';
 import User from './containers/user_show';
 import Home from './components/Home';
+import Login from './components/login'
 
 class App extends React.Component {
   
@@ -13,6 +14,7 @@ class App extends React.Component {
     search: "",
     faveArray: []
   }
+
   
   componentDidMount = () => {
     fetch('http://localhost:3000/trails')
@@ -26,6 +28,28 @@ class App extends React.Component {
       faveArray: previousState.faveArray.concat(faves)
     }))
     )
+
+
+    // let person = {
+    //   username: "sylvia",
+    //   password: "whatscooking",
+    //   bio: "Sylvia Woods was an American restaurateur who founded the sould food restaurant Sylvia's in Harlem on Lenox Avenue, New York City in 1962. She published two cookbooks and was an important figure in the community.",
+    //   image: "https://upload.wikimedia.org/wikipedia/commons/4/49/Syvia_of_Sylvia%27s_reaturant_N.Y.C_%28cropped%29.jpg"
+    // }
+
+    // fetch('http://localhost:3000/users', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+
+    //   },
+    //   body: JSON.stringify({user: person})
+    // })
+    //   .then(r => r.json())
+    //   .then(console.log)
+
+
   }
 
   searchHandler = (searchString) => {
@@ -39,11 +63,8 @@ class App extends React.Component {
   
   
   faveHandler = (faveTrail) => {
-    // console.log("faveTrail.favorites:", faveTrail.favorites)
     let favorite = this.state.faveArray.find(fave => fave.user_id === 3 && fave.trail_id === faveTrail.id)
-    // console.log("favorite", favorite)
     if (favorite) {
-      // console.log("**UNFAVORITED**")
       let newArray = this.state.faveArray
       let index = newArray.findIndex(fav => fav.id === favorite.id)
       newArray.splice(index, 1)
@@ -52,7 +73,6 @@ class App extends React.Component {
         method: "DELETE"
       })
     } else {
-      // console.log('**FAVORITED**')
     let object = {
       user_id: 3,
       trail_id: faveTrail.id}
@@ -70,21 +90,10 @@ class App extends React.Component {
     this.setState(() => ({
       faveArray: [result, ...this.state.faveArray]
     }))})
-    // console.log("object:", object, "options:", options)
-
-    // UNCOMMENT ONCE YOU FIGURE OUT HOW TO DELETE
-    // if (this.state.faveArray.includes(faveTrail)) {
-    // } else {
-      // this.setState(() => ({
-      //   faveArray: [result, ...this.state.faveArray]
-      // }))
-    // }
       }
-    // console.log('***********************')
   }
 
   locationSubmitHandler = (searchTerm) => {
-    // console.log("searchTerm in app:", searchTerm)
     fetch(`http://localhost:3000/trails/?location=${searchTerm}`)
     .then(resp => resp.json())
     .then(trails => this.setState({trailArray: trails}))
@@ -93,22 +102,23 @@ class App extends React.Component {
   
 
   render() { 
-    // console.log("this.state.faveArray:", this.state.faveArray) 
-     return this.state.trailArray.length > 0  
-     ?
+    //  return this.state.trailArray.length > 0  
+    //  ?
+    return (
      <>
       <div className="App">
           <NavBar />
         <Switch>
           <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} locationSubmitHandler={this.locationSubmitHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
           <Route path="/users" render={() => <User trails={this.filterTrails()} faves={this.state.faveArray} faveHandler={this.faveHandler}/>} />
-          <Route path="/login" />
+          <Route path="/login" render={() => <Login />}/>
           <Route path="/" render={() => <Home />}/>
         </Switch>
       </div>
     </>
-    :
-    "loading..."
+    )
+    // :
+    // "loading..."
   }
 }
 
