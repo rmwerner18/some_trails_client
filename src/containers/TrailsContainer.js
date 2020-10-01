@@ -24,8 +24,10 @@ export default class TrailsContainer extends React.Component {
     render() {
         return (
             <div className="trails-container">
-                <SearchTrailLocations locationSubmitHandler={this.props.locationSubmitHandler} />
-                <SearchTrails searchHandler={this.searchHandler}/>
+                <div>
+                    <SearchTrailLocations locationSubmitHandler={this.props.locationSubmitHandler} />
+                    <SearchTrails searchHandler={this.searchHandler}/>
+                </div>
                 {this.trailGenerator()}
             </div>
         )

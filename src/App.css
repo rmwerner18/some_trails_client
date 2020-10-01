@@ -14,21 +14,22 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   background: white;
   border-radius: 5px;
-  width: 400px;
-  height: 700px;
+  width: 300px;
+  height: 450px;
+  font-size: 15px;
 }
 
 #trail-image {
   border-radius: 5px 5px 0 0;
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 200px;
   padding: 0px 0px 0px 0px;
   object-fit: cover;
 }
 
 .trail-img-div { 
-  height: 400px; 
-  width: 400px; 
+  height: 300px; 
+  width: 200px; 
   overflow: hidden; 
   position: relative;
 }
@@ -43,7 +44,7 @@
 
 .diff-img {
   margin: auto;
-  width: 400px;
+  width: 300px;
 }
 
 

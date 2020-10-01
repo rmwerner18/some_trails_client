@@ -71,8 +71,7 @@ class TrailCard extends React.Component {
                         {this.props.trail.name}        
                     </h4>
                     <p>{this.props.trail.location} • {this.props.trail.length} mi • {this.props.trail.stars} stars</p>
-                    
-                    <p>Summary: {this.props.trail.summary}</p>
+                    <p>{this.props.trail.summary}</p>
                     {this.bookmarking()}
                 </div>
             </div>
