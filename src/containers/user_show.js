@@ -96,7 +96,7 @@ class User extends React.Component {
             ?
             <>
             <h1>Welcome, {this.state.user.username}!</h1>
-            <img src={this.state.user.image} alt={this.state.user.username}/>
+            <img className="prof-pic" src={this.state.user.image} alt={this.state.user.username}/>
             <h4>About Me: {this.state.user.bio}</h4>
             <FavoriteContainer faves={this.props.faves} faveHandler={this.props.faveHandler}/>
             <HikeForm trails={this.props.trails} editHandler={this.hikeEditHandler} submitHandler={this.formSubmitHandler} />

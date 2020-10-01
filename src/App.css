@@ -53,9 +53,19 @@ body {
 
 .hike-card {
   display: flex;
-  border-style: ridge;
-  width: 50%
+  /* border-style: ridge; */
+  width: 50%;
+  border: 1px black;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background: white;
+  border-radius: 5px;
 }
+
+.hike-container {
+
+}
+
 .hike-card img {
   width: 100px;
   height: auto;
@@ -112,7 +122,6 @@ body {
   cursor: pointer;
 }
 
-
 input[type=text], select {
   width: 100%;
   padding: 12px 20px;
@@ -136,6 +145,11 @@ input[type=submit] {
 
 input[type=submit]:hover {
   background-color: #386641;
+}
+
+.prof-pic {
+  width: 200px;
+  height: auto;
 }
 
 /* .files input {
