@@ -24,7 +24,11 @@ class HikeContainer extends React.Component {
     }
 
     render() {
-        return this.hikes()
+        return (
+            <div className="hike-container">
+                {this.hikes()}
+            </div>
+        )
     }
 }
 
