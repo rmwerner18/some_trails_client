@@ -57,7 +57,7 @@ class HikeCard extends React.Component {
                 </div>    
                 :
                 <div className="hike-card-content" onDoubleClick={this.changeEditMode}>
-                    <h1>{this.props.hike.name}</h1>
+                    <h1 className='hike-card-title'>{this.props.hike.name}</h1>
                     <p>Miles: {this.props.hike.length}</p>
                     <p>{this.props.hike.start} - {this.props.hike.end}</p>
                     <p>Trail: <span onClick={this.modalHandler}>{this.findTrailById()}</span></p>

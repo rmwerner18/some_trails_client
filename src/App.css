@@ -52,10 +52,52 @@ body {
   background-color: #F2E8CF;
 }
 
+.user-show {
+  display: grid;
+  grid-template-columns: minmax(250px, 25%) auto;
+  grid-template-areas: 
+  "wel wel"
+  "pic hikes"
+  "form form"
+  "fav-head fav-head"
+  "trails trails"
+}
+
+.user-welcome{
+  grid-area: wel
+}
+
+.prof-pic {
+  grid-area: pic;
+  width: 200px;
+  height: auto;
+}
+
+.hike-container {
+  grid-area: hikes;
+  height: 400px;
+  overflow-y: scroll;
+  border-radius: 5px;
+}
+
+.hike-form {
+  grid-area: form;
+}
+
+.fav-head {
+  grid-area: fav-head;
+}
+
+.favorite-container {
+  grid-area: trails;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .hike-card {
   display: flex;
   /* border-style: ridge; */
-  width: 50%;
+  width: 90%;
   border: 1px black;
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -63,9 +105,11 @@ body {
   border-radius: 5px;
 }
 
-.hike-container {
-
+.hike-card-title {
+  display: flex;
+  justify-content: center;
 }
+
 
 .hike-card img {
   width: 100px;
@@ -148,10 +192,7 @@ input[type=submit]:hover {
   background-color: #386641;
 }
 
-.prof-pic {
-  width: 200px;
-  height: auto;
-}
+
 
 /* .files input {
     outline: 2px dashed #92b0b3;

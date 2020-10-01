@@ -94,14 +94,16 @@ class User extends React.Component {
         return (
             this.state.user.hikes
             ?
-            <>
-            <h1>Welcome, {this.state.user.username}!</h1>
-            <img className="prof-pic" src={this.state.user.image} alt={this.state.user.username}/>
-            <h4>About Me: {this.state.user.bio}</h4>
-            <FavoriteContainer faves={this.props.faves} faveHandler={this.props.faveHandler}/>
-            <HikeForm trails={this.props.trails} editHandler={this.hikeEditHandler} submitHandler={this.formSubmitHandler} />
-            <HikeContainer hikes={this.state.user.hikes} trails={this.props.trails} editHandler={this.hikeEditHandler}/>
-            </>
+            <div className="user-show">
+                <h1 className="user-welcome">Welcome, {this.state.user.username}!</h1>
+                <div className="prof-pic">
+                    <img className="prof-pic" src={this.state.user.image} alt={this.state.user.username}/>
+                    <h4>About Me: {this.state.user.bio}</h4>
+                </div>
+                <FavoriteContainer faves={this.props.faves} faveHandler={this.props.faveHandler}/>
+                <HikeForm trails={this.props.trails} editHandler={this.hikeEditHandler} submitHandler={this.formSubmitHandler} />
+                <HikeContainer hikes={this.state.user.hikes} trails={this.props.trails} editHandler={this.hikeEditHandler}/>
+            </div>
             :
             "loading" 
         )
