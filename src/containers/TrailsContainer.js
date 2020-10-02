@@ -10,7 +10,7 @@ export default class TrailsContainer extends React.Component {
     }
     
     trailGenerator = () => {
-        return this.props.trails.map(trail => <TrailCard key={trail.id} trail={trail} faves={this.props.faves} faveHandler={this.faveHandler}/>)
+        return this.props.trails.map(trail => <TrailCard key={trail.id} user={this.props.user} trail={trail} faves={this.props.faves} faveHandler={this.faveHandler}/>)
     }
 
     faveHandler = (faveTrail) => {

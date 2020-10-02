@@ -48,7 +48,7 @@ export default class FavoriteContainer extends React.Component {
 
 
     mapFavedTrails = () => {
-        return this.state.favedTrails.map(trail => <TrailCard key={trail.id} trail={trail} faves={this.props.faves} faveHandler={this.faveHandler}/>)
+        return this.state.favedTrails.map(trail => <TrailCard user={this.props.user} key={trail.id} trail={trail} faves={this.props.faves} faveHandler={this.faveHandler}/>)
     }
 
 

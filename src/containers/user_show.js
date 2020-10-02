@@ -112,7 +112,7 @@ class User extends React.Component {
                     <img className="prof-pic" src={this.state.user.image} alt={this.state.user.username}/>
                     <h4>About Me: {this.state.user.bio}</h4>
                 </div>
-                <FavoriteContainer faves={this.props.faves} trails={this.props.trails} faveHandler={this.props.faveHandler}/>
+                <FavoriteContainer user={this.state.user} faves={this.props.faves} trails={this.props.trails} faveHandler={this.props.faveHandler}/>
                 <HikeForm trails={this.props.trails} editHandler={this.hikeEditHandler} submitHandler={this.formSubmitHandler} />
                 <HikeContainer hikes={this.state.user.hikes} trails={this.props.trails} editHandler={this.hikeEditHandler}/>
             </div>
