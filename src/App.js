@@ -138,7 +138,13 @@ class App extends React.Component {
       },
       body: JSON.stringify({user: user})
     }).then(resp => resp.json())
-    .then(console.log)
+    .then(result => {
+      console.log(result)
+      localStorage.setItem('token', result.jwt);
+      this.setState({user: JSON.parse(result.user)});
+      this.props.history.push('/')
+    }
+    )
   }
 
   loginHandler = (e, loginState) => {
@@ -177,7 +183,7 @@ class App extends React.Component {
     return (
      <>
       <div className="App">
-          <NavBar user={this.state.user} />
+          <NavBar user={this.state.user} className='nav-bar' />
         <Switch>
           <Route path="/trails" render={() => this.state.user.id ? 
               <TrailsContainer user={this.state.user} trails={this.filterTrails()} faves={this.state.faveArray} locationSubmitHandler={this.locationSubmitHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>

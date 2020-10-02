@@ -4,8 +4,25 @@
 }
 
 .trails-container {
+  display: grid;
+  grid-template-areas: 
+  "search"
+  "search"
+  "trails";
+}
+
+.trails-container-searches {
+  grid-area: search;
+}
+
+.trails-container-trails {
+  grid-area: trails;
   display: flex;
   flex-wrap: wrap;
+}
+
+.navbar {
+  padding-bottom: 25px;
 }
 
 .trail-card {

@@ -18,7 +18,10 @@ export default class FavoriteContainer extends React.Component {
                 }
             })
             .then(resp => resp.json())
-            .then(trail => this.setState({favedTrails: [...this.state.favedTrails, trail]}))
+            .then(trail => {
+                    this.setState({favedTrails: [...this.state.favedTrails, trail]})           
+            })
+                // this.setState({favedTrails: [...this.state.favedTrails, trail]})
             // .then(console.log)
         )
     }
@@ -32,9 +35,10 @@ export default class FavoriteContainer extends React.Component {
         }
         )
         .then(resp => resp.json())
-        .then(faves => this.setState(() => ({faveArray: faves}),
-        () => {this.mapFaves()})
-        )
+        .then(faves => {
+            let favorites = faves.filter(fave => {return fave.user_id === this.props.user.id})
+            this.setState(() => ({faveArray: favorites}), () => {this.mapFaves()})
+        })
         // this.setState({faveArray: this.props.faves})
     }
 

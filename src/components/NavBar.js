@@ -29,6 +29,12 @@ class NavBar extends React.Component {
           style={link}
           activeStyle={{background: '#6A994E'}}>
         Profile Page</NavLink>
+        <NavLink
+          to="/"
+          exact
+          style={link}
+          activeStyle={{background: '#6A994E'}}>
+        Welcome!</NavLink>
         {this.props.user.id 
         ?
         <NavLink
@@ -45,12 +51,6 @@ class NavBar extends React.Component {
           activeStyle={{background: '#6A994E'}}>
         Login</NavLink>
         }
-        <NavLink
-          to="/"
-          exact
-          style={link}
-          activeStyle={{background: '#6A994E'}}>
-        Welcome!</NavLink>
         {/* <SearchTrails /> */}
       </div>
     );

@@ -25,11 +25,13 @@ export default class TrailsContainer extends React.Component {
         return this.props.trails.length > 0  
         ?
             <div className="trails-container">
-                <div>
+                <div className={'trail-container-searches'}>
                     <SearchTrailLocations locationSubmitHandler={this.props.locationSubmitHandler} />
                     <SearchTrails searchHandler={this.searchHandler}/>
                 </div>
-                {this.trailGenerator()}
+                <div className='trails-container-trails'>
+                    {this.trailGenerator()}
+                </div>
             </div>
         :
         "loading..."
