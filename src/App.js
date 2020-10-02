@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TrailsContainer from './containers/TrailsContainer'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import NavBar from './components/NavBar';
 import User from './containers/user_show';
 import Home from './components/Home';
@@ -45,6 +45,7 @@ class App extends React.Component {
       }))
       )
     } else {
+      console.log(this.props.history)
       this.props.history.push('/login')
     }
 
@@ -54,20 +55,16 @@ class App extends React.Component {
     //   bio: "Sylvia Woods was an American restaurateur who founded the sould food restaurant Sylvia's in Harlem on Lenox Avenue, New York City in 1962. She published two cookbooks and was an important figure in the community.",
     //   image: "https://upload.wikimedia.org/wikipedia/commons/4/49/Syvia_of_Sylvia%27s_reaturant_N.Y.C_%28cropped%29.jpg"
     // }
-
     // fetch('http://localhost:3000/users', {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
     //     'Accept': 'application/json',
-
     //   },
     //   body: JSON.stringify({user: person})
     // })
     //   .then(r => r.json())
     //   .then(console.log)
-
-
   }
 
   searchHandler = (searchString) => {
@@ -177,4 +174,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
