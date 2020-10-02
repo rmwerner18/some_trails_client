@@ -81,8 +81,13 @@ class App extends React.Component {
   
   
   faveHandler = (faveTrail) => {
-    let favorite = this.state.faveArray.find(fave => fave.user_id === localStorage.getItem('user_id') && fave.trail_id === faveTrail.id)
+    console.log(localStorage.getItem('user_id'))
+    console.log('faveArray in app', this.state.faveArray)
+
+    let favorite = this.state.faveArray.find(fave => parseInt(fave.user_id) === parseInt(localStorage.getItem('user_id')) && fave.trail_id === faveTrail.id)
+    console.log('favorite:', favorite)
     if (favorite) {
+      console.log('**UNFAVORITED**')
       let newArray = this.state.faveArray
       let index = newArray.findIndex(fav => fav.id === favorite.id)
       newArray.splice(index, 1)
@@ -94,6 +99,8 @@ class App extends React.Component {
         }
       })
     } else {
+      console.log('**FAVORITED**')
+
     let object = {
       user_id: localStorage.getItem('user_id'),
       trail_id: faveTrail.id}
@@ -151,6 +158,7 @@ class App extends React.Component {
   render() { 
     //  return this.state.trailArray.length > 0  
     //  ?
+    console.log('faves in app:', this.state.faveArray)
     return (
      <>
       <div className="App">

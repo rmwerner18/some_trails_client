@@ -17,14 +17,13 @@ class TrailCard extends React.Component {
         .then(
             faves => {
                 this.setState(previousState => ({
-                faveArray: previousState.faveArray.concat(faves)
+                    faveArray: previousState.faveArray.concat(faves)
                 }))
-
-        let favorite = this.state.faveArray.find(fave => fave.user_id === localStorage.getItem('user_id') && fave.trail_id === this.props.trail.id)
-        // console.log("trailCard favorite:", favorite)
-        if (favorite) {
-            this.setState({bookmarked: true})
-        }
+            let favorite = this.state.faveArray.find(fave => parseInt(fave.user_id) === parseInt(localStorage.getItem('user_id')) && fave.trail_id === this.props.trail.id)
+            // console.log("trailCard favorite:", favorite)
+            if (favorite) {
+                this.setState({bookmarked: true})
+            }
     })
     }
     
