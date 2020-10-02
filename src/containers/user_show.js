@@ -11,7 +11,12 @@ class User extends React.Component {
     }
     
     componentDidMount() {
-        fetch("http://localhost:3000/users/3")
+        fetch(`http://localhost:3000/users/${localStorage.getItem('user_id')}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
         .then(resp => resp.json())
         .then(user => this.setState({user: user}))
     }
@@ -30,6 +35,9 @@ class User extends React.Component {
 
         fetch(`http://localhost:3000/hikes/${id}`, {
             method: "PATCH", 
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
             body: formData
         }).then(response => response.json())
         .then(result => {
@@ -69,6 +77,9 @@ class User extends React.Component {
         
         fetch('http://localhost:3000/hikes', {
             method: 'POST',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
             body: formData
         }).then(response => response.json())
         .then(result => {
@@ -100,7 +111,7 @@ class User extends React.Component {
                     <img className="prof-pic" src={this.state.user.image} alt={this.state.user.username}/>
                     <h4>About Me: {this.state.user.bio}</h4>
                 </div>
-                <FavoriteContainer faves={this.props.faves} faveHandler={this.props.faveHandler}/>
+                <FavoriteContainer faves={this.props.faves} trails={this.props.trails} faveHandler={this.props.faveHandler}/>
                 <HikeForm trails={this.props.trails} editHandler={this.hikeEditHandler} submitHandler={this.formSubmitHandler} />
                 <HikeContainer hikes={this.state.user.hikes} trails={this.props.trails} editHandler={this.hikeEditHandler}/>
             </div>

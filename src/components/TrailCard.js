@@ -6,20 +6,28 @@ class TrailCard extends React.Component {
     }
 
     componentDidMount = () => {
-        fetch("http://localhost:3000/favorites")
+        fetch("http://localhost:3000/favorites", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+        )
         .then(resp => resp.json())
         .then(
             faves => {
                 this.setState(previousState => ({
                 faveArray: previousState.faveArray.concat(faves)
                 }))
-        let favorite = this.state.faveArray.find(fave => fave.user_id === 3 && fave.trail_id === this.props.trail.id)
+
+        let favorite = this.state.faveArray.find(fave => fave.user_id === localStorage.getItem('user_id') && fave.trail_id === this.props.trail.id)
         // console.log("trailCard favorite:", favorite)
         if (favorite) {
             this.setState({bookmarked: true})
         }
     })
     }
+    
     // clickHandler = () => {
     //     document.getElementById('myModal').style.display = "block"
     // }
@@ -39,6 +47,7 @@ class TrailCard extends React.Component {
         this.setState({bookmarked: !this.state.bookmarked})
         this.props.faveHandler(this.props.trail)
     }
+
     difficultyRender = () => {
         if (this.props.trail.difficulty === "blue") {
             return <img className="diff-img" src="https://i.imgur.com/mLgjNSV.png" alt={this.props.trail.difficulty}/>

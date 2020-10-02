@@ -29,9 +29,17 @@ class HikeCard extends React.Component {
     }
 
     fetchPhoto = () => {
-        return fetch(`http://localhost:3000/hikes/129/photo`)
+        return fetch(`http://localhost:3000/hikes/${this.props.hike.id}/photo`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          } 
+        )
         .then(resp => resp.json())
-        .then(console.log)
+        .then(photo => {
+            this.setState({imageURL: photo})
+        })
     }
 
     render() {

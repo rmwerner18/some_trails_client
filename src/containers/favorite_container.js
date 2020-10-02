@@ -9,8 +9,14 @@ export default class FavoriteContainer extends React.Component {
     }
     
     mapFaves = () => {
+        console.log('faveArray;',this.state.faveArray)
         return this.state.faveArray.map(fave => 
-            fetch("http://localhost:3000/trails/" + fave.trail_id)
+            fetch("http://localhost:3000/trails/" + fave.trail_id, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then(resp => resp.json())
             .then(trail => this.setState({favedTrails: [...this.state.favedTrails, trail]}))
             // .then(console.log)
@@ -18,11 +24,18 @@ export default class FavoriteContainer extends React.Component {
     }
 
     componentDidMount = () => {
-        fetch("http://localhost:3000/favorites")
+        fetch("http://localhost:3000/favorites", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+        )
         .then(resp => resp.json())
         .then(faves => this.setState(() => ({faveArray: faves}),
         () => {this.mapFaves()})
         )
+        // this.setState({faveArray: this.props.faves})
     }
 
     faveHandler = (trail) => {
@@ -35,14 +48,14 @@ export default class FavoriteContainer extends React.Component {
 
 
     mapFavedTrails = () => {
-        return this.state.favedTrails.map(trail => <TrailCard key={trail.id} trail={trail} faveHandler={this.faveHandler}/>)
+        return this.state.favedTrails.map(trail => <TrailCard key={trail.id} trail={trail} faves={this.props.faves} faveHandler={this.faveHandler}/>)
     }
 
 
 
     
     render() {
-        // console.log("faves in faves", this.state)
+        console.log("faves in faves", this.state.favedTrails)
         return(
             <>
                 <h3 className='fav-head'>Bookmarked Trails:</h3>

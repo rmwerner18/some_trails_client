@@ -14,7 +14,10 @@ class HikeContainer extends React.Component {
             hikes.splice(index, 1)
             this.setState({hikes: hikes})
             fetch(`http://localhost:3000/hikes/${id}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
             })
         }
     }

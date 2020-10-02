@@ -12,23 +12,41 @@ class App extends React.Component {
   state = {
     trailArray: [],
     search: "",
-    faveArray: []
+    faveArray: [],
+    user: {}
   }
 
   
   componentDidMount = () => {
-    fetch('http://localhost:3000/trails')
-    .then(resp => resp.json())
-    .then(trails => this.setState({trailArray: trails}))
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetch('http://localhost:3000/trails', {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(trails => {
+        console.log(trails)
+        this.setState({trailArray: trails})
+      })
 
-    fetch("http://localhost:3000/favorites")
-    .then(resp => resp.json())
-    .then(
-      faves => this.setState(previousState => ({
-      faveArray: previousState.faveArray.concat(faves)
-    }))
-    )
-
+      fetch("http://localhost:3000/favorites", {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(
+        faves => this.setState(previousState => ({
+        faveArray: previousState.faveArray.concat(faves)
+      }))
+      )
+    } else {
+      this.props.history.push('/login')
+    }
 
     // let person = {
     //   username: "sylvia",
@@ -63,25 +81,30 @@ class App extends React.Component {
   
   
   faveHandler = (faveTrail) => {
-    let favorite = this.state.faveArray.find(fave => fave.user_id === 3 && fave.trail_id === faveTrail.id)
+    let favorite = this.state.faveArray.find(fave => fave.user_id === localStorage.getItem('user_id') && fave.trail_id === faveTrail.id)
     if (favorite) {
       let newArray = this.state.faveArray
       let index = newArray.findIndex(fav => fav.id === favorite.id)
       newArray.splice(index, 1)
       this.setState({faveArray: newArray})
       fetch(`http://localhost:3000/favorites/${favorite.id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       })
     } else {
     let object = {
-      user_id: 3,
+      user_id: localStorage.getItem('user_id'),
       trail_id: faveTrail.id}
 
     let options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': "application/json"},
+        'Accept': "application/json",
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
       body: JSON.stringify(object)}
 
     fetch("http://localhost:3000/favorites", options)
@@ -94,12 +117,36 @@ class App extends React.Component {
   }
 
   locationSubmitHandler = (searchTerm) => {
-    fetch(`http://localhost:3000/trails/?location=${searchTerm}`)
+    fetch(`http://localhost:3000/trails/?location=${searchTerm}`, {
+      method: "GET",
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
     .then(resp => resp.json())
     .then(trails => this.setState({trailArray: trails}))
   }
 
-  
+  loginHandler = (e, loginState) => {
+    // e.preventDefault()
+    console.log(loginState)
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({user: loginState})
+    }).then(r => r.json())
+    .then(result => {
+      console.log(result)
+      localStorage.setItem('token', result.jwt);
+      localStorage.setItem('user_id', JSON.parse(result.user).id);
+      this.setState({user: JSON.parse(result.user)});
+      this.props.history.push('/')
+    })
+  }
 
   render() { 
     //  return this.state.trailArray.length > 0  
@@ -109,9 +156,9 @@ class App extends React.Component {
       <div className="App">
           <NavBar />
         <Switch>
-          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} locationSubmitHandler={this.locationSubmitHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
+          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} faves={this.state.faveArray} locationSubmitHandler={this.locationSubmitHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
           <Route path="/users" render={() => <User trails={this.filterTrails()} faves={this.state.faveArray} faveHandler={this.faveHandler}/>} />
-          <Route path="/login" render={() => <Login />}/>
+          <Route path="/login" render={() => <Login submitHandler={this.loginHandler}/>}/>
           <Route path="/" render={() => <Home />}/>
         </Switch>
       </div>
