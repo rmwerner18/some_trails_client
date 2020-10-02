@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TrailsContainer from './containers/TrailsContainer'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import NavBar from './components/NavBar';
 import User from './containers/user_show';
 import Home from './components/Home';
@@ -20,6 +20,14 @@ class App extends React.Component {
   componentDidMount = () => {
     const token = localStorage.getItem('token')
     if (token) {
+      fetch('http://localhost:3000/profile', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }}).then(resp => resp.json())
+        .then(result => this.setState({user: JSON.parse(result.user)}))
+
+
       fetch('http://localhost:3000/trails', {
         method: "GET",
         headers: {
@@ -45,26 +53,8 @@ class App extends React.Component {
       }))
       )
     } else {
-      console.log(this.props.history)
       this.props.history.push('/login')
     }
-
-    // let person = {
-    //   username: "sylvia",
-    //   password: "whatscooking",
-    //   bio: "Sylvia Woods was an American restaurateur who founded the sould food restaurant Sylvia's in Harlem on Lenox Avenue, New York City in 1962. She published two cookbooks and was an important figure in the community.",
-    //   image: "https://upload.wikimedia.org/wikipedia/commons/4/49/Syvia_of_Sylvia%27s_reaturant_N.Y.C_%28cropped%29.jpg"
-    // }
-    // fetch('http://localhost:3000/users', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //   },
-    //   body: JSON.stringify({user: person})
-    // })
-    //   .then(r => r.json())
-    //   .then(console.log)
   }
 
   searchHandler = (searchString) => {
@@ -131,9 +121,28 @@ class App extends React.Component {
     .then(trails => this.setState({trailArray: trails}))
   }
 
+  newUserHandler = (e, state) => {
+    let user = {
+      username: state.username,
+      password: state.password,
+      bio: state.bio,
+      image: state.image,
+    }
+    e.preventDefault()
+    console.log(state)
+    fetch('http://localhost:3000/users', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': "application/json"
+      },
+      body: JSON.stringify(user)
+    }).then(resp => resp.json())
+    .then(console.log)
+  }
+
   loginHandler = (e, loginState) => {
-    // e.preventDefault()
-    console.log(loginState)
+    e.preventDefault()
     fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
@@ -146,24 +155,42 @@ class App extends React.Component {
     .then(result => {
       console.log(result)
       localStorage.setItem('token', result.jwt);
-      localStorage.setItem('user_id', JSON.parse(result.user).id);
       this.setState({user: JSON.parse(result.user)});
       this.props.history.push('/')
     })
   }
 
+  logoutHandler = () => {
+    localStorage.removeItem('token')
+    this.setState({user: {}})
+  }
+
   render() { 
     //  return this.state.trailArray.length > 0  
     //  ?
+    console.log("app state:", this.state)
     console.log('faves in app:', this.state.faveArray)
     return (
      <>
       <div className="App">
-          <NavBar />
+          <NavBar user={this.state.user} />
         <Switch>
-          <Route path="/trails" render={() => <TrailsContainer trails={this.filterTrails()} faves={this.state.faveArray} locationSubmitHandler={this.locationSubmitHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>} />
-          <Route path="/users" render={() => <User trails={this.filterTrails()} faves={this.state.faveArray} faveHandler={this.faveHandler}/>} />
-          <Route path="/login" render={() => <Login submitHandler={this.loginHandler}/>}/>
+          <Route path="/trails" render={() => this.state.user.id ? 
+              <TrailsContainer user={this.state.user} trails={this.filterTrails()} faves={this.state.faveArray} locationSubmitHandler={this.locationSubmitHandler} searchHandler={this.searchHandler} faveHandler={this.faveHandler}/>
+              :
+              <Redirect to={'/login'}/>}/>
+          <Route path="/users" render={() => this.state.user.id ? 
+              <User  user={this.state.user} trails={this.filterTrails()} faves={this.state.faveArray} faveHandler={this.faveHandler}/>
+              :
+              <Redirect to={'/login'}/>}/>
+          <Route path="/login" render={() => this.state.user.id ?
+              <Redirect to={'/users'}/>
+              :
+              <Login submitHandler={this.loginHandler} newUserHandler={this.newUserHandler} />}/>
+          <Route path="/logout" render={() => this.state.user.id ?
+              this.logoutHandler()
+              :
+              <Redirect to={'/login'}/>}/>
           <Route path="/" render={() => <Home />}/>
         </Switch>
       </div>

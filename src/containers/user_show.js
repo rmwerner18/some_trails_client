@@ -11,14 +11,15 @@ class User extends React.Component {
     }
     
     componentDidMount() {
-        fetch(`http://localhost:3000/users/${localStorage.getItem('user_id')}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        .then(resp => resp.json())
-        .then(user => this.setState({user: user}))
+        // fetch(`http://localhost:3000/users/${this.props.user.id}`, {
+        //     method: "GET",
+        //     headers: {
+        //         Authorization: `Bearer ${localStorage.getItem('token')}`
+        //     }
+        // })
+        // .then(resp => resp.json())
+        // .then(user => 
+        this.setState({user: this.props.user})
     }
 
     hikeEditHandler = (id, state) => {
@@ -31,7 +32,7 @@ class User extends React.Component {
         formData.append('hike[start]', state.start)
         formData.append('hike[end]', state.end)
         formData.append('hike[trail_id]', state.trail_id)
-        formData.append('hike[user_id]', 3)
+        formData.append('hike[user_id]', this.props.user.id)
 
         fetch(`http://localhost:3000/hikes/${id}`, {
             method: "PATCH", 
@@ -73,7 +74,7 @@ class User extends React.Component {
         formData.append('hike[start]', state.start)
         formData.append('hike[end]', state.end)
         formData.append('hike[trail_id]', trail().id)
-        formData.append('hike[user_id]', 3)
+        formData.append('hike[user_id]', this.props.user.id)
         
         fetch('http://localhost:3000/hikes', {
             method: 'POST',

@@ -29,12 +29,22 @@ class NavBar extends React.Component {
           style={link}
           activeStyle={{background: '#6A994E'}}>
         Profile Page</NavLink>
+        {this.props.user.id 
+        ?
+        <NavLink
+        to="/logout"
+        exact
+        style={link}
+        activeStyle={{background: '#6A994E'}}>
+        Logout</NavLink>
+        :   
         <NavLink
           to="/login"
           exact
           style={link}
           activeStyle={{background: '#6A994E'}}>
         Login</NavLink>
+        }
         <NavLink
           to="/"
           exact
