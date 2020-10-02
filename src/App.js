@@ -136,12 +136,16 @@ class App extends React.Component {
         'Content-Type': 'application/json',
         'Accept': "application/json"
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify({user: user})
     }).then(resp => resp.json())
     .then(console.log)
   }
 
   loginHandler = (e, loginState) => {
+    let user = {
+      username: loginState.username,
+      password: loginState.password
+    }
     e.preventDefault()
     fetch('http://localhost:3000/login', {
       method: 'POST',
@@ -150,7 +154,7 @@ class App extends React.Component {
         'Accept': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
-      body: JSON.stringify({user: loginState})
+      body: JSON.stringify({user: user})
     }).then(r => r.json())
     .then(result => {
       console.log(result)
