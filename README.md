@@ -20,6 +20,9 @@ npm install
 ## Running Commands
 npm start
 
+## Contributors
+@rmwerner18 🐛
+
 ## Contributing to TrailMixer
 To contribute to TrailMixer, follow these steps:
 
@@ -32,8 +35,8 @@ Alternatively see the GitHub documentation on creating a pull request.
 
 
 
-Contact
+## Contact
 If you want to contact me you can reach me at mimioj@gmail.com
 
-License
+## License
 This project uses the following license: GNU General Public License v3.0
