@@ -7,9 +7,9 @@ Demo: https://www.loom.com/share/d29b9b96a1dc4e79a14788ab5834ee51
 https://github.com/rmwerner18/some_trails_api
 
 ## Tech Stack
-React.js
-React Router - Declarative Routing
-HikerProject API
+React.js |
+React Router |
+HikerProject API |
 JQuery
 
 ## Installing TrailMixer
