@@ -3,6 +3,9 @@ TrailMixer is a hiking companion that you can use to discover new trails across 
 
 Demo: https://www.loom.com/share/d29b9b96a1dc4e79a14788ab5834ee51
 
+## Backend
+https://github.com/rmwerner18/trail_mixer_api
+
 ## Tech Stack
 React.js
 React Router - Declarative Routing
