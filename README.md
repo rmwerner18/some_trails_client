@@ -23,7 +23,7 @@ When prompted, ensure Frontend is running at http://localhost:3001
 @Mimioj101 🐛
 
 ## Contact
-If you want to contact me you can reach me at mimioj@gmail.com
+If you want to contact me you can reach me at rmwerner@umich.edu
 
 ## License
 This project uses the following license: GNU General Public License v3.0
